@@ -1,0 +1,8 @@
+Layout Tools I'll Use: 
+    ConstraintLayout or RelativeLayout (for floating button)
+
+    LinearLayout for horizontal panels
+
+    RecyclerView for list of PDFs (more efficient than ScrollView)
+
+    FloatingActionButton for the Scan button
