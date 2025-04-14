@@ -28,12 +28,13 @@
             android:layout_marginEnd="16dp" />
 
         <!-- Spacer -->
-        <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="1" />
 
         <!-- App Name -->
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
         <TextView
             android:id="@+id/titleText"
             android:layout_width="wrap_content"
@@ -79,17 +80,20 @@
     </LinearLayout>
 
     <!-- LIST OF PDFs -->
+
+    <!-- FIXED SCAN BUTTON -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/pdfRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="104dp"
         android:layout_marginBottom="72dp"
-        android:padding="8dp"
         android:clipToPadding="false"
-        android:scrollbars="vertical" />
+        android:padding="8dp"
+        android:scrollbars="vertical"
+        app:layout_anchor="@+id/pdfRecyclerView"
+        app:layout_anchorGravity="center" />
 
-    <!-- FIXED SCAN BUTTON -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnScan"
         android:layout_width="wrap_content"
