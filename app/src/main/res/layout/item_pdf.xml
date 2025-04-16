@@ -8,24 +8,24 @@
     android:padding="18dp"
     android:gravity="center_vertical"
     tools:ignore="ExtraText"
-    android:background="@color/purple_200">
-<!--    android:background="@color/white"-->
+    android:background="@color/green">
 
-    <ImageView
-        android:id="@+id/pdf_thumbnail"
-        android:layout_width="48dp"
-        android:layout_height="64dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_pdf_placeholder"
-        android:background="@color/white"/>
 
-    <TextView
-        android:id="@+id/pdf_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_weight="1"
-        android:text="PDF Title"
-        android:textSize="16sp"
-        android:textColor="@color/white" />
+        <ImageView
+            android:id="@+id/pdf_thumbnail"
+            android:layout_width="60dp"
+            android:layout_height="84dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_pdf_placeholder"
+            android:background="@color/white"/>
+
+        <TextView
+            android:id="@+id/pdf_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:text="PDF Title"
+            android:textSize="16sp"
+            android:textColor="@color/white" />
 </LinearLayout>
