@@ -11,9 +11,9 @@
     <LinearLayout
         android:id="@+id/topBar"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="50dp"
         android:orientation="horizontal"
-        android:background="@color/white"
+        android:background="@color/yellow"
         android:padding="8dp"
         android:gravity="center_vertical"
         android:elevation="4dp">
@@ -40,6 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Snatch"
+            android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -71,8 +72,10 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="My Notes"
+            android:textColor="@color/white"
             android:textStyle="bold"
-            android:backgroundTint="@color/purple_100" /> <!-- Active tab style -->
+            android:layout_marginLeft="5dp"
+            android:backgroundTint="@color/green" /> <!-- Active tab style -->
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnMyFolders"
@@ -81,6 +84,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="My Folders"
+            android:textColor="@color/black"
+            android:layout_marginRight="5dp"
             android:backgroundTint="@color/white" /> <!-- Inactive tab style -->
     </LinearLayout>
 
@@ -88,23 +93,24 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/pdfRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="785dp"
         android:layout_marginTop="104dp"
         android:layout_marginBottom="72dp"
-        android:padding="8dp"
         android:clipToPadding="false"
+        android:padding="8dp"
+        android:background="@color/darkgreen"
         android:scrollbars="vertical" />
 
     <!-- SCAN BUTTON -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnScan"
+        android:id="@+id/scanButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="24dp"
+        android:layout_margin="34dp"
         android:contentDescription="Scan"
         android:src="@drawable/ic_camera"
-        app:backgroundTint="@color/purple_500"
+        app:backgroundTint="@color/brown"
         app:tint="@android:color/white" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

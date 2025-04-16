@@ -1,5 +1,6 @@
 package com.sam.snatch;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sam.snatch.adapter.PdfListAdapter;
 import com.sam.snatch.model.PdfItem;
+import com.sam.snatch.ScanActivity;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -33,6 +35,12 @@ public class MainActivity extends AppCompatActivity {
 
         adapter = new PdfListAdapter(this, pdfItems);
         pdfRecyclerView.setAdapter(adapter);
+
+        findViewById(R.id.scanButton).setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, ScanActivity.class);
+            startActivity(intent);
+        });
+
     }
 
     private void generateDummyPdfs() {
