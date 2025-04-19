@@ -47,8 +47,11 @@
             </intent-filter>
         </activity>
 
-        <!-- Uncomment when ScanActivity is created -->
-        <activity android:name=".ScanActivity" />
+        <activity
+            android:name=".ScanActivity"
+            android:theme="@style/Theme.Snatch"/>
+        <activity android:name=".PreviewActivity"/>
+
 
     </application>
 </manifest>
