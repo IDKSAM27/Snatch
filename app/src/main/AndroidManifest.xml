@@ -50,6 +50,7 @@
         <activity
             android:name=".ScanActivity"
             android:theme="@style/Theme.Snatch"/>
+        <activity android:name=".PreviewActivity"/>
 
 
     </application>
