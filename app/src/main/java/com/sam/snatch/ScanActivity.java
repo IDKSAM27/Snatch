@@ -7,6 +7,7 @@ import android.provider.MediaStore;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -17,8 +18,8 @@ import java.util.Locale;
 public class ScanActivity extends AppCompatActivity {
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
-    private String currentPhotoPath;
     private final ArrayList<String> photoPaths = new ArrayList<>();
+    private String latestPhotoPath; // holds the current photo being taken
     private Button okButton;
 
     @Override
@@ -33,8 +34,7 @@ public class ScanActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        // Start camera immediately
-        dispatchTakePictureIntent();
+        dispatchTakePictureIntent(); // start camera immediately
     }
 
     private void dispatchTakePictureIntent() {
@@ -43,6 +43,7 @@ public class ScanActivity extends AppCompatActivity {
             File photoFile;
             try {
                 photoFile = createImageFile();
+                latestPhotoPath = photoFile.getAbsolutePath(); // Save path before launching intent
             } catch (IOException ex) {
                 ex.printStackTrace();
                 return;
@@ -60,15 +61,15 @@ public class ScanActivity extends AppCompatActivity {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
         File storageDir = getExternalFilesDir(null);
-        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
-        currentPhotoPath = image.getAbsolutePath();
-        return image;
+        return File.createTempFile(imageFileName, ".jpg", storageDir);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            photoPaths.add(currentPhotoPath);
+            if (latestPhotoPath != null) {
+                photoPaths.add(latestPhotoPath);
+            }
             dispatchTakePictureIntent(); // Launch camera again
         }
         super.onActivityResult(requestCode, resultCode, data);
