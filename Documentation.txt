@@ -6,3 +6,5 @@ Layout Tools I'll Use:
     RecyclerView for list of PDFs (more efficient than ScrollView)
 
     FloatingActionButton for the Scan button
+
+Log: Camera being a bit slow

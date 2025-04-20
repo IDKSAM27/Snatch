@@ -5,23 +5,24 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
-import androidx.compose.ui.tooling.PreviewActivity;
-import androidx.core.content.FileProvider;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 public class ScanActivity extends AppCompatActivity {
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
-    private ArrayList<Uri> imageUris = new ArrayList<>();
-    private String currentPhotoPath;
+    private ArrayList<String> photoUris = new ArrayList<>();
     private Uri currentPhotoUri;
 
     @Override
@@ -29,21 +30,14 @@ public class ScanActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan);
 
-        Button takePhotoButton = findViewById(R.id.takePhotoButton);
-        Button okButton = findViewById(R.id.okButton);
+        Button takePhotoBtn = findViewById(R.id.takePhotoBtn);
+        Button okBtn = findViewById(R.id.okBtn);
 
-        takePhotoButton.setOnClickListener(v -> {
-            dispatchTakePictureIntent();
-        });
-
-        okButton.setOnClickListener(v -> {
-            if (imageUris.isEmpty()) {
-                Toast.makeText(this, "No photos taken", Toast.LENGTH_SHORT).show();
-            } else {
-                Intent intent = new Intent(this, PreviewActivity.class);
-                intent.putParcelableArrayListExtra("imageUris", imageUris);
-                startActivity(intent);
-            }
+        takePhotoBtn.setOnClickListener(v -> dispatchTakePictureIntent());
+        okBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(ScanActivity.this, PreviewActivity.class);
+            intent.putStringArrayListExtra("photoUris", photoUris);
+            startActivity(intent);
         });
     }
 
@@ -54,11 +48,13 @@ public class ScanActivity extends AppCompatActivity {
             try {
                 photoFile = createImageFile();
             } catch (IOException ex) {
-                Toast.makeText(this, "Failed to create image file", Toast.LENGTH_SHORT).show();
-                return;
+                ex.printStackTrace();
             }
+
             if (photoFile != null) {
-                currentPhotoUri = FileProvider.getUriForFile(this, "com.sam.snatch.fileprovider", photoFile);
+                currentPhotoUri = FileProvider.getUriForFile(this,
+                        "com.sam.snatch.fileprovider",
+                        photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, currentPhotoUri);
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
             }
@@ -66,25 +62,18 @@ public class ScanActivity extends AppCompatActivity {
     }
 
     private File createImageFile() throws IOException {
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", java.util.Locale.getDefault()).format(new Date());
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,
-                ".jpg",
-                storageDir
-        );
-        currentPhotoPath = image.getAbsolutePath();
+        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
         return image;
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            imageUris.add(currentPhotoUri);
-            dispatchTakePictureIntent(); // Keep taking photos
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK && currentPhotoUri != null) {
+            photoUris.add(currentPhotoUri.toString());
         }
     }
 }
