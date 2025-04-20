@@ -5,10 +5,20 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/okButton"
+        android:id="@+id/takePhotoBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="OK"
+        android:textColor="@color/darkgreen"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="24dp" />
+
+    <Button
+        android:id="@+id/okBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Take photo"
         android:textColor="@color/darkgreen"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
